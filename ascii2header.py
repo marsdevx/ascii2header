@@ -1,4 +1,5 @@
 import os
+import sys
 import math
 import subprocess
 from datetime import datetime
@@ -94,7 +95,9 @@ def gen_header(path, ascii_name):
 
   return header
 
-def write_header(path, ascii):
+def write_header():
+  path = path = os.path.abspath(os.path.expanduser(sys.argv[1]))
+  ascii = sys.argv[2]
   header = gen_header(path, ascii)
 
   with open(path, "r") as file:
@@ -105,8 +108,5 @@ def write_header(path, ascii):
     file.write("\n\n")
     file.write(existing_content)
 
-
-file_path = os.path.expanduser("./test.py")
-ascii_name = "anime_girl.txt"
-
-write_header(file_path, ascii_name)
+if __name__ == "__main__":
+  write_header()
