@@ -11,6 +11,7 @@ def header_info(path):
     "update_time": "",
     "rel_path": ""
   }
+  
   file_name = os.path.basename(path)
   info['file_name'] = f"File:         {file_name}"
 
@@ -25,16 +26,11 @@ def header_info(path):
   if git_url.startswith("https://"):
     git_user = git_url.split("/")[-2]
     git_repo = git_url.split("/")[-1].replace(".git", "")
-  elif git_url.startswith("git@"):
-    git_user = git_url.split(":")[1].split("/")[-1]
-    git_repo = git_url.split(":")[1].split("/")[-1].replace(".git", "")
   else:
     git_user = "unknown"
     git_repo = "unknown"
-
   info['git_user'] = f"Github:       {git_user}"
   info['git_repo'] = f"Project:      {git_repo}"
-
 
   rel_path = os.path.relpath(path, git_repo)[1:]
   info['rel_path'] = f"Path:         {rel_path}"
