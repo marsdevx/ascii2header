@@ -75,7 +75,12 @@ def gen_header(path, ascii_name):
 
   info = header_info(path)
   _, file_ext = os.path.splitext(info['file_name'])
-  ascii_art_path = os.path.expanduser(f"ascii-arts/{ascii_name}")
+
+  ascii_art_path = os.path.expanduser(f"~/Desktop/Projects/ascii2header/ascii-arts/{ascii_name}")
+  if not os.path.exists(ascii_art_path):
+    print(f"Error: The file '{ascii_art_path}' does not exist.")
+    sys.exit(1)
+
   header_core = generate_header_core(info, ascii_art_path)
 
   if file_ext in [".c", ".css", ".js", ".ino", ".h"]:
@@ -96,6 +101,9 @@ def gen_header(path, ascii_name):
   return header
 
 def write_header():
+  if len(sys.argv) < 3:
+    print("Usage: ascii2header <file> <ascii_art>")
+    sys.exit(1)
   path = path = os.path.abspath(os.path.expanduser(sys.argv[1]))
   ascii = sys.argv[2]
   header = gen_header(path, ascii)
