@@ -1,6 +1,7 @@
 import os
 import sys
 import math
+import random
 import subprocess
 from datetime import datetime
 
@@ -48,15 +49,12 @@ def generate_header_core(info, ascii):
   header_lines = []
   ascii_index = 0
 
-  if ascii == "random":
-    ascii == "random"
-  else:
-    with open(ascii, 'r', encoding='utf-8') as file:
-      ascii = file.readlines()
+  with open(ascii, 'r', encoding='utf-8') as file:
+    ascii = file.readlines()
 
   ascii_lines = len(ascii)
   if ascii_lines < 9:
-    print("Error: ASCII art must be at least 9 lines")
+    print("Usage: ASCII art must be at least 9 lines")
     sys.exit(1)
 
   start_point = math.floor((ascii_lines - 9) / 2)
@@ -104,15 +102,22 @@ def write_header():
     print("Usage: ascii2header <file> <ascii_art>")
     sys.exit(1)
   if len(sys.argv) == 2:
-    ascii = "random"
+    ascii_arts_dir = os.path.expanduser("~/Desktop/Projects/ascii2header/ascii-arts")
+    ascii_files = [f for f in os.listdir(ascii_arts_dir) if os.path.isfile(os.path.join(ascii_arts_dir, f))]
+    ascii = random.choice(ascii_files)
   if len(sys.argv) == 3:
     ascii = sys.argv[2]
-    ascii = os.path.expanduser(f"~/Desktop/Projects/ascii2header/ascii-arts/{ascii}")
-    if not os.path.exists(ascii):
-      print(f"Error: The file '{ascii}' does not exist.")
-      sys.exit(1)
+    
+  ascii = os.path.expanduser(f"~/Desktop/Projects/ascii2header/ascii-arts/{ascii}")
+  if not os.path.exists(ascii):
+    print(f"Error: The file '{ascii}' does not exist.")
+    sys.exit(1)
   
-  path = path = os.path.abspath(os.path.expanduser(sys.argv[1]))
+  path = os.path.abspath(os.path.expanduser(sys.argv[1]))
+  if not os.path.exists(path):
+    print(f"Error: The file '{path}' does not exist.")
+    sys.exit(1)
+
   info = header_info(path)
   header_core = generate_header_core(info, ascii)
 
