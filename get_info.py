@@ -5,10 +5,13 @@ from datetime import datetime
 def header_info(path):
   info = {
     "file_name": "",
+    "empty1": "",
     "git_repo": "",
     "git_user": "",
+    "empty2": "",
     "creation_time": "",
     "update_time": "",
+    "empty3": "",
     "rel_path": ""
   }
   
