@@ -42,16 +42,19 @@ def header_info(path):
   
   return info
 
-def generate_header_core(info, ascii_art_path):
+def generate_header_core(info, ascii):
 
   width = 115
   header_lines = []
   ascii_index = 0
 
-  with open(ascii_art_path, 'r', encoding='utf-8') as file:
-    ascii_art_path = file.readlines()
+  if ascii == "random":
+    ascii == "random"
+  else:
+    with open(ascii, 'r', encoding='utf-8') as file:
+      ascii = file.readlines()
 
-  ascii_lines = len(ascii_art_path)
+  ascii_lines = len(ascii)
   start_point = math.floor((ascii_lines - 9) / 2)
   
   for i in range(ascii_lines):
@@ -59,29 +62,21 @@ def generate_header_core(info, ascii_art_path):
       info_key = list(info.keys())[ascii_index]
       info_value = info[info_key]
       info_line = info_value.ljust(width // 2)
-      art_line = ascii_art_path[i].strip() if i < len(ascii_art_path) else ''
+      art_line = ascii[i].strip() if i < len(ascii) else ''
       combined_line = f"{info_line}{art_line.rjust(width - len(info_line))}"
       header_lines.append(combined_line)
       ascii_index += 1
     else:
-      art_line = ascii_art_path[i].strip()
+      art_line = ascii[i].strip()
       empty_info = ' ' * (width // 2)
       combined_line = f"{empty_info}{art_line.rjust(width - len(empty_info))}"
       header_lines.append(combined_line)
 
   return '\n'.join(header_lines)
 
-def gen_header(path, ascii_name):
+def gen_header(path, header_core, info):
 
-  info = header_info(path)
   _, file_ext = os.path.splitext(info['file_name'])
-
-  ascii_art_path = os.path.expanduser(f"~/Desktop/Projects/ascii2header/ascii-arts/{ascii_name}")
-  if not os.path.exists(ascii_art_path):
-    print(f"Error: The file '{ascii_art_path}' does not exist.")
-    sys.exit(1)
-
-  header_core = generate_header_core(info, ascii_art_path)
 
   if file_ext in [".c", ".css", ".js", ".ino", ".h"]:
     start_marker = "/*   "
@@ -101,12 +96,23 @@ def gen_header(path, ascii_name):
   return header
 
 def write_header():
-  if len(sys.argv) < 3:
+  if len(sys.argv) < 2:
     print("Usage: ascii2header <file> <ascii_art>")
     sys.exit(1)
+  if len(sys.argv) == 2:
+    ascii = "random"
+  if len(sys.argv) == 3:
+    ascii = sys.argv[2]
+    ascii = os.path.expanduser(f"~/Desktop/Projects/ascii2header/ascii-arts/{ascii}")
+    if not os.path.exists(ascii):
+      print(f"Error: The file '{ascii}' does not exist.")
+      sys.exit(1)
+  
   path = path = os.path.abspath(os.path.expanduser(sys.argv[1]))
-  ascii = sys.argv[2]
-  header = gen_header(path, ascii)
+  info = header_info(path)
+  header_core = generate_header_core(info, ascii)
+
+  header = gen_header(path, header_core, info)
 
   with open(path, "r") as file:
     existing_content = file.read()
