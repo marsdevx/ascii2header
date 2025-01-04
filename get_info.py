@@ -26,7 +26,7 @@ def get_info(path):
   print(git_repo)
   print(git_user)
 
-  rel_path = os.path.relpath(path, git_repo)
+  rel_path = os.path.relpath(path, git_repo)[1:]
   print(rel_path)
 
 path = os.path.expanduser("~/Desktop/Projects/ascii2header/header_example.txt")
