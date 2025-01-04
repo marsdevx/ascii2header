@@ -2,7 +2,7 @@ import os
 import subprocess
 from datetime import datetime
 
-def get_info(path):
+def header_info(path):
   info = {
     "file_name": "",
     "git_repo": "",
@@ -40,6 +40,3 @@ def get_info(path):
   info['rel_path'] = rel_path
   
   return info
-
-path = os.path.expanduser("~/Desktop/Projects/ascii2header/header_example.txt")
-print(get_info(path))
