@@ -97,31 +97,10 @@ def gen_header(path, header_core, info):
 
   return header
 
-def write_header():
-  if len(sys.argv) < 2:
-    print("Usage: ascii2header <file> <ascii_art>")
-    sys.exit(1)
-  if len(sys.argv) == 2:
-    ascii_arts_dir = os.path.expanduser("~/Desktop/Projects/ascii2header/ascii-arts")
-    ascii_files = [f for f in os.listdir(ascii_arts_dir) if os.path.isfile(os.path.join(ascii_arts_dir, f))]
-    ascii = random.choice(ascii_files)
-  if len(sys.argv) == 3:
-    ascii = sys.argv[2]
-    
-  ascii = os.path.expanduser(f"~/Desktop/Projects/ascii2header/ascii-arts/{ascii}")
-  if not os.path.exists(ascii):
-    print(f"Error: The file '{ascii}' does not exist.")
-    sys.exit(1)
-  
-  path = os.path.abspath(os.path.expanduser(sys.argv[1]))
-  if not os.path.exists(path):
-    print(f"Error: The file '{path}' does not exist.")
-    sys.exit(1)
-
+def prepare_header_and_content(ascii, path):
   info = header_info(path)
   header_core = generate_header_core(info, ascii)
   header = gen_header(path, header_core, info)
-
 
   with open(path, "r") as file:
     existing_content = file.readlines()
@@ -138,6 +117,32 @@ def write_header():
   
   if len(existing_content) < 2 or existing_content[0].strip() or existing_content[1].strip():
     existing_content = ["\n", "\n"] + existing_content
+
+  return header, existing_content
+
+def write_header():
+  if len(sys.argv) < 2:
+    print("Usage: ascii2header <file> <ascii_art>")
+    sys.exit(1)
+
+  if len(sys.argv) == 2:
+    ascii_arts_dir = os.path.expanduser("~/Desktop/Projects/ascii2header/ascii-arts")
+    ascii_files = [f for f in os.listdir(ascii_arts_dir) if os.path.isfile(os.path.join(ascii_arts_dir, f))]
+    ascii = random.choice(ascii_files)
+  if len(sys.argv) == 3:
+    ascii = sys.argv[2]
+
+  ascii = os.path.expanduser(f"~/Desktop/Projects/ascii2header/ascii-arts/{ascii}")
+  if not os.path.exists(ascii):
+    print(f"Error: The file '{ascii}' does not exist.")
+    sys.exit(1)
+  
+  path = os.path.abspath(os.path.expanduser(sys.argv[1]))
+  if not os.path.exists(path):
+    print(f"Error: The file '{path}' does not exist.")
+    sys.exit(1)
+
+  header, existing_content = prepare_header_and_content(ascii, path)
 
   with open(path, "w") as file:
     file.write(header)
