@@ -94,12 +94,19 @@ def gen_header(path, ascii_name):
 
   return header
 
+def write_header(path, ascii):
+  header = gen_header(path, ascii)
+
+  with open(path, "r") as file:
+    existing_content = file.read()
+
+  with open(path, "w") as file:
+    file.write(header)
+    file.write("\n\n")
+    file.write(existing_content)
+
 
 file_path = os.path.expanduser("./test.py")
 ascii_name = "anime_girl.txt"
 
-header = gen_header(file_path, ascii_name)
-
-output_file = "generated_header.txt"
-with open(output_file, "w", encoding="utf-8") as file:
-  file.write(header)
+write_header(file_path, ascii_name)
