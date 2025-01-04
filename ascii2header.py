@@ -55,6 +55,10 @@ def generate_header_core(info, ascii):
       ascii = file.readlines()
 
   ascii_lines = len(ascii)
+  if ascii_lines < 9:
+    print("Error: ASCII art must be at least 9 lines")
+    sys.exit(1)
+
   start_point = math.floor((ascii_lines - 9) / 2)
   
   for i in range(ascii_lines):
