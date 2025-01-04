@@ -70,7 +70,12 @@ def generate_header_core(info, ascii_art_path):
 
   return '\n'.join(header_lines)
 
-def gen_header(header_core, file_ext):
+def gen_header(path, ascii_art_path):
+
+  info = header_info(path)
+  _, file_ext = os.path.splitext(info['file_name'])
+  header_core = generate_header_core(info, ascii_art_path)
+
   if file_ext in [".c", ".css", ".js", ".ino", ".h"]:
     start_marker = "/*   "
     end_marker = "  */"
@@ -89,14 +94,13 @@ def gen_header(header_core, file_ext):
   return header
 
 
+
+
+
 file_path = os.path.expanduser("~/Desktop/Projects/ascii2header/gen_header.py")
 ascii_art_path = os.path.expanduser("~/Desktop/Projects/ascii2header/anime_girl.txt")
-info = header_info(file_path)
 
-_, file_ext = os.path.splitext(info['file_name'])
-header_core = generate_header_core(info, ascii_art_path)
-
-header = gen_header(header_core, file_ext)
+header = gen_header(file_path, ascii_art_path)
 
 output_file = "generated_header.txt"
 with open(output_file, "w", encoding="utf-8") as file:
