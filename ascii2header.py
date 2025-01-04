@@ -120,16 +120,28 @@ def write_header():
 
   info = header_info(path)
   header_core = generate_header_core(info, ascii)
-
   header = gen_header(path, header_core, info)
 
+
   with open(path, "r") as file:
-    existing_content = file.read()
+    existing_content = file.readlines()
+
+  lines_to_skip = 0
+  for line in existing_content:
+    if line.strip().startswith(("/*", "#")):
+      lines_to_skip += 1
+    else:
+      break
+
+  if lines_to_skip > 0:
+    existing_content = existing_content[lines_to_skip:]
+  
+  if len(existing_content) < 2 or existing_content[0].strip() or existing_content[1].strip():
+    existing_content = ["\n", "\n"] + existing_content
 
   with open(path, "w") as file:
     file.write(header)
-    file.write("\n\n")
-    file.write(existing_content)
+    file.writelines(existing_content)
 
 if __name__ == "__main__":
   write_header()
