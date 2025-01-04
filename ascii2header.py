@@ -120,9 +120,15 @@ def prepare_header_and_content(ascii, path):
 
   return header, existing_content
 
+def write_header_to_file(ascii, file_path):
+  header, existing_content = prepare_header_and_content(ascii, file_path)
+  with open(file_path, "w") as file:
+    file.write(header)
+    file.writelines(existing_content)
+
 def write_header():
   if len(sys.argv) < 2:
-    print("Usage: ascii2header <file> <ascii_art>")
+    print("Usage: ascii2header <path> <ascii_art>")
     sys.exit(1)
 
   if len(sys.argv) == 2:
@@ -136,17 +142,22 @@ def write_header():
   if not os.path.exists(ascii):
     print(f"Error: The file '{ascii}' does not exist.")
     sys.exit(1)
-  
+
   path = os.path.abspath(os.path.expanduser(sys.argv[1]))
   if not os.path.exists(path):
-    print(f"Error: The file '{path}' does not exist.")
+    print(f"Error: The path '{path}' does not exist.")
     sys.exit(1)
 
-  header, existing_content = prepare_header_and_content(ascii, path)
-
-  with open(path, "w") as file:
-    file.write(header)
-    file.writelines(existing_content)
+  if os.path.isfile(path):
+    write_header_to_file(ascii, path)
+  elif os.path.isdir(path):
+    for file_name in os.listdir(path):
+      file_path = os.path.join(path, file_name)
+      if os.path.isfile(file_path):
+        write_header_to_file(ascii, file_path)
+  else:
+    print(f"Error: The path '{path}' is neither a file nor a directory.")
+    sys.exit(1)
 
 if __name__ == "__main__":
   write_header()
