@@ -121,6 +121,16 @@ def prepare_header_and_content(ascii, path):
   return header, existing_content
 
 def write_header_to_file(ascii, file_path):
+  if ascii == "random":
+    ascii_arts_dir = os.path.expanduser("~/Desktop/Projects/ascii2header/ascii-arts")
+    ascii_files = [f for f in os.listdir(ascii_arts_dir) if os.path.isfile(os.path.join(ascii_arts_dir, f))]
+    ascii = random.choice(ascii_files)
+
+  ascii = os.path.expanduser(f"~/Desktop/Projects/ascii2header/ascii-arts/{ascii}")
+  if not os.path.exists(ascii):
+    print(f"Error: The file '{ascii}' does not exist.")
+    sys.exit(1)
+  
   header, existing_content = prepare_header_and_content(ascii, file_path)
   with open(file_path, "w") as file:
     file.write(header)
@@ -130,18 +140,11 @@ def write_header():
   if len(sys.argv) < 2:
     print("Usage: ascii2header <path> <ascii_art>")
     sys.exit(1)
-
+  
   if len(sys.argv) == 2:
-    ascii_arts_dir = os.path.expanduser("~/Desktop/Projects/ascii2header/ascii-arts")
-    ascii_files = [f for f in os.listdir(ascii_arts_dir) if os.path.isfile(os.path.join(ascii_arts_dir, f))]
-    ascii = random.choice(ascii_files)
+    ascii = "random"
   if len(sys.argv) == 3:
     ascii = sys.argv[2]
-
-  ascii = os.path.expanduser(f"~/Desktop/Projects/ascii2header/ascii-arts/{ascii}")
-  if not os.path.exists(ascii):
-    print(f"Error: The file '{ascii}' does not exist.")
-    sys.exit(1)
 
   path = os.path.abspath(os.path.expanduser(sys.argv[1]))
   if not os.path.exists(path):
