@@ -104,7 +104,7 @@ def gen_header(path, header_core, info):
 
   _, file_ext = os.path.splitext(info['file_name'])
 
-  if file_ext in [".c", ".css", ".js", ".ino", ".h"]:
+  if file_ext in [".c", ".css", ".js", ".ino", ".h", ".lua"]:
     start_marker = "/*   "
     end_marker = "  */"
   else:
