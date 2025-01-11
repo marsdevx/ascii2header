@@ -140,7 +140,7 @@ def prepare_header_and_content(ascii, path):
     else:
       break
 
-  if lines_to_skip > 0:
+  if lines_to_skip >= 9:
     existing_content = existing_content[lines_to_skip:]
   
   if len(existing_content) < 2 or existing_content[0].strip() or existing_content[1].strip():
