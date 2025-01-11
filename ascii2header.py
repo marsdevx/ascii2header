@@ -26,6 +26,7 @@ import os
 import sys
 import math
 import random
+import argparse
 import subprocess
 from datetime import datetime
 
@@ -164,27 +165,33 @@ def write_header_to_file(ascii, file_path):
     file.writelines(existing_content)
 
 def write_header():
-  if len(sys.argv) < 2:
-    print("Usage: ascii2header <path> <ascii_art>")
-    sys.exit(1)
-  
-  if len(sys.argv) == 2:
-    ascii = "random"
-  if len(sys.argv) == 3:
-    ascii = sys.argv[2]
+  parser = argparse.ArgumentParser(
+    description="Generate headers for files or directories with optional ASCII art."
+  )
+  parser.add_argument(
+    "path",
+    help="Path to the file or directory where the header will be added.",
+  )
+  parser.add_argument(
+    "-a", "--ascii",
+    default="random",
+    help="ASCII art to include in the header. Defaults to 'random'."
+  )
 
-  path = os.path.abspath(os.path.expanduser(sys.argv[1]))
+  args = parser.parse_args()
+
+  path = os.path.abspath(os.path.expanduser(args.path))
   if not os.path.exists(path):
     print(f"Error: The path '{path}' does not exist.")
     sys.exit(1)
 
   if os.path.isfile(path):
-    write_header_to_file(ascii, path)
+    write_header_to_file(args.ascii, path)
   elif os.path.isdir(path):
     for file_name in os.listdir(path):
       file_path = os.path.join(path, file_name)
       if os.path.isfile(file_path):
-        write_header_to_file(ascii, file_path)
+        write_header_to_file(args.ascii, file_path)
   else:
     print(f"Error: The path '{path}' is neither a file nor a directory.")
     sys.exit(1)
