@@ -164,13 +164,15 @@ def write_header_to_file(ascii, file_path):
     file.write(header)
     file.writelines(existing_content)
 
+
 def write_header():
   parser = argparse.ArgumentParser(
     description="Generate headers for files or directories with optional ASCII art."
   )
   parser.add_argument(
-    "path",
-    help="Path to the file or directory where the header will be added.",
+    "paths",
+    nargs="+",
+    help="Path(s) to the file(s) or directory(ies) where the header will be added.",
   )
   parser.add_argument(
     "-a", "--ascii",
@@ -180,21 +182,21 @@ def write_header():
 
   args = parser.parse_args()
 
-  path = os.path.abspath(os.path.expanduser(args.path))
-  if not os.path.exists(path):
-    print(f"Error: The path '{path}' does not exist.")
-    sys.exit(1)
+  for path in args.paths:
+    path = os.path.abspath(os.path.expanduser(path))
+    if not os.path.exists(path):
+      print(f"Error: The path '{path}' does not exist.")
+      continue
 
-  if os.path.isfile(path):
-    write_header_to_file(args.ascii, path)
-  elif os.path.isdir(path):
-    for file_name in os.listdir(path):
-      file_path = os.path.join(path, file_name)
-      if os.path.isfile(file_path):
-        write_header_to_file(args.ascii, file_path)
-  else:
-    print(f"Error: The path '{path}' is neither a file nor a directory.")
-    sys.exit(1)
+    if os.path.isfile(path):
+      write_header_to_file(args.ascii, path)
+    elif os.path.isdir(path):
+      for file_name in os.listdir(path):
+        file_path = os.path.join(path, file_name)
+        if os.path.isfile(file_path):
+          write_header_to_file(args.ascii, file_path)
+    else:
+      print(f"Error: The path '{path}' is neither a file nor a directory.")
 
 if __name__ == "__main__":
   write_header()
