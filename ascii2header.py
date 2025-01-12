@@ -150,11 +150,11 @@ def prepare_header_and_content(ascii, path):
 
 def write_header_to_file(ascii, file_path):
   if ascii == "random":
-    ascii_arts_dir = os.path.expanduser("~/Desktop/Projects/ascii2header/ascii-arts")
+    ascii_arts_dir = os.path.expanduser("~/ascii2header/ascii-arts")
     ascii_files = [f for f in os.listdir(ascii_arts_dir) if os.path.isfile(os.path.join(ascii_arts_dir, f))]
     ascii = random.choice(ascii_files)
 
-  ascii = os.path.expanduser(f"~/Desktop/Projects/ascii2header/ascii-arts/{ascii}")
+  ascii = os.path.expanduser(f"~/ascii2header/ascii-arts/{ascii}")
   if not os.path.exists(ascii):
     print(f"Error: The file '{ascii}' does not exist.")
     sys.exit(1)
