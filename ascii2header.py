@@ -108,7 +108,7 @@ def gen_header(path, header_core, info):
   if file_ext in [".c", ".css", ".js", ".ino", ".h", ".lua"]:
     start_marker = "/*   "
     end_marker = "  */"
-  if file_ext == ".html":
+  elif file_ext == ".html":
     start_marker = "<!--  "
     end_marker = " -->"
   else:
