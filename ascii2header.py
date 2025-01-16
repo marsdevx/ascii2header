@@ -167,7 +167,40 @@ def write_header_to_file(ascii, file_path):
 
 def write_header():
   parser = argparse.ArgumentParser(
-    description="Generate headers for files or directories with optional ASCII art."
+    prog="ascii2header",
+    description=(
+      "ascii2header is a tool for adding customizable headers to files or directories with optional ASCII art. "
+      "Headers include details like file name, creation and update timestamps, and project information."
+    ),
+    epilog=(
+      "Examples of usage:\n"
+      "  1. Add a header to a single file:\n"
+      "     ascii2header <file>\n\n"
+      "  2. Add headers to all files in a directory:\n"
+      "     ascii2header <dir>\n\n"
+      "  3. Add headers to multiple files and directories:\n"
+      "     ascii2header <dir> <file> <dir> <file> <file>\n\n"
+      "  4. Specify ASCII art:\n"
+      "     ascii2header <file> -a <ascii>\n\n"
+      "Available ASCII Art Options:\n"
+      "  - anime-girl\n"
+      "  - asteroid\n"
+      "  - cat\n"
+      "  - eye\n"
+      "  - eyes\n"
+      "  - franxx\n"
+      "  - gary\n"
+      "  - gojo\n"
+      "  - pikachu\n"
+      "  - rabbit\n\n"
+      "Advanced Options:\n"
+      "  To add your own ASCII art:\n"
+      "    1. Navigate to the ASCII arts directory:\n"
+      "       cd ~/ascii2header/ascii-arts\n"
+      "    2. Add your custom ASCII art by creating a new file and saving your art in it.\n\n"
+      "For more details, visit the Github repository: marsdevx/ascii2header"
+    ),
+    formatter_class=argparse.RawTextHelpFormatter
   )
   parser.add_argument(
     "paths",
@@ -177,8 +210,15 @@ def write_header():
   parser.add_argument(
     "-a", "--ascii",
     default="random",
-    help="ASCII art to include in the header. Defaults to 'random'."
+    help=(  
+      "Specify an ASCII art file to include in the header. Provide the name of the file from "
+      "the ~/ascii2header/ascii-arts directory. Defaults to 'random'."
+    )
   )
+
+  if len(sys.argv) == 1:
+    parser.print_help()
+    sys.exit(1)
 
   args = parser.parse_args()
 
