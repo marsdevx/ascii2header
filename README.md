@@ -1,13 +1,15 @@
 <div align="center">
   <img src="imgs/logo.png" width="320px" alt="Logo ASCII header">
 </div>
+
 <br>
+
 <div align="center">
-  <img src="https://img.shields.io/github/last-commit/marsdevx/ascii2header?logo=github&logoColor=f5f5f5&label=Last%20Commit&color=8A2BE2&labelColor=2C2C2C" alt="Last Commit">
-  <img src="https://img.shields.io/badge/Languages-Python%203.13-2181C1?logo=coder&logoColor=f5f5f5&labelColor=2C2C2C" alt="Languages">
-  <img src="https://img.shields.io/badge/Shell-Zsh%20%7C%20Bash-4EAA25?logo=gnu-bash&logoColor=f5f5f5&labelColor=2C2C2C" alt="Shell Support">
-  <img src="https://img.shields.io/badge/Header%20Generator-File%20Meta-blueviolet?logo=markdown&logoColor=f5f5f5&labelColor=2C2C2C" alt="Header Generator">
-  <img src="https://img.shields.io/badge/Customizable-ASCII%20Art-yellow?logo=artstation&logoColor=f5f5f5&labelColor=2C2C2C" alt="Customizable">
+  <img src="https://custom-icon-badges.demolab.com/github/last-commit/marsdevx/ascii2header?logoColor=white&labelColor=2C2C2C&label=Last%20Commit&color=8A2BE2&logo=mark-github" alt="Last Commit">
+  <img src="https://custom-icon-badges.demolab.com/static/v1?logoColor=white&labelColor=2C2C2C&label=Languages&message=Python%203.13&color=D32F2F&logo=file-code" alt="Languages">
+  <img src="https://custom-icon-badges.demolab.com/static/v1?logoColor=white&labelColor=2C2C2C&label=Shell&message=Zsh%20%7C%20Bash&color=748ADB&logo=gnu-bash" alt="Shell Support">
+  <img src="https://custom-icon-badges.demolab.com/static/v1?logoColor=white&labelColor=2C2C2C&label=Header%20Generator&message=File%20Meta&color=F47F42&logo=file-binary" alt="Header Generator">
+  <img src="https://custom-icon-badges.demolab.com/static/v1?logoColor=white&labelColor=2C2C2C&label=Customizable&message=ASCII%20Art&color=009688&logo=file-media" alt="Customizable">
 </div>
 
 ---
