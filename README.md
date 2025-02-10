@@ -12,7 +12,7 @@
   [![Languages](https://custom-icon-badges.demolab.com/static/v1?logoColor=white&labelColor=2C2C2C&label=Languages&message=Python%203.13&color=748ADB&logo=file-code)](https://github.com/marsdevx/ascii2header "Languages")
   [![Header Generator](https://custom-icon-badges.demolab.com/static/v1?logoColor=white&labelColor=2C2C2C&label=Header%20Generator&message=File%20Meta&color=F47F42&logo=file-binary)](https://github.com/marsdevx/ascii2header "Header Generator")
   [![Customizable](https://custom-icon-badges.demolab.com/static/v1?logoColor=white&labelColor=2C2C2C&label=Customizable&message=ASCII%20Art&color=009688&logo=file-media)](https://github.com/marsdevx/ascii2header "Customizable")
-  [![License](https://custom-icon-badges.demolab.com/static/v1?logoColor=white&labelColor=2C2C2C&label=License&message=MIT&color=00C853&logo=law)](https://github.com/marsdevx/REPONAME/blob/main/LICENSE "License")
+  [![License](https://custom-icon-badges.demolab.com/static/v1?logoColor=white&labelColor=2C2C2C&label=License&message=MIT&color=00C853&logo=law)](https://github.com/marsdevx/ascii2header/blob/main/LICENSE "License")
 
 </div>
 
