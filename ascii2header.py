@@ -126,27 +126,32 @@ def gen_header(path, header_core, info):
   return header
 
 def prepare_header_and_content(ascii, path):
-  info = header_info(path)
-  header_core = generate_header_core(info, ascii)
-  header = gen_header(path, header_core, info)
+  try:
+    info = header_info(path)
+    header_core = generate_header_core(info, ascii)
+    header = gen_header(path, header_core, info)
 
-  with open(path, "r") as file:
-    existing_content = file.readlines()
+    with open(path, "r") as file:
+      existing_content = file.readlines()
 
-  lines_to_skip = 0
-  for line in existing_content:
-    if line.strip().startswith(("/*", "#", "<!--")):
-      lines_to_skip += 1
-    else:
-      break
+    lines_to_skip = 0
+    for line in existing_content:
+      if line.strip().startswith(("/*", "#", "<!--")):
+        lines_to_skip += 1
+      else:
+        break
 
-  if lines_to_skip >= 9:
-    existing_content = existing_content[lines_to_skip:]
+    if lines_to_skip >= 9:
+      existing_content = existing_content[lines_to_skip:]
+    
+    if len(existing_content) < 2 or existing_content[0].strip() or existing_content[1].strip():
+      existing_content = ["\n", "\n"] + existing_content
+
+    return header, existing_content
   
-  if len(existing_content) < 2 or existing_content[0].strip() or existing_content[1].strip():
-    existing_content = ["\n", "\n"] + existing_content
-
-  return header, existing_content
+  except UnicodeDecodeError as e:
+    print(f"Error reading {path}: {e}")
+    sys.exit(1)
 
 def write_header_to_file(ascii, file_path):
   if ascii == "random":
