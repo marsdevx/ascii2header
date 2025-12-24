@@ -105,12 +105,15 @@ def gen_header(path, header_core, info):
 
   _, file_ext = os.path.splitext(info['file_name'])
 
-  if file_ext in [".c", ".css", ".js", ".ino", ".h", ".lua", ".md", ".cpp", ".hpp"]:
+  if file_ext in [".c", ".css", ".js", ".ino", ".h", ".md", ".cpp", ".hpp"]:
     start_marker = "/*   "
     end_marker = "  */"
   elif file_ext == ".html":
     start_marker = "<!--  "
     end_marker = " -->"
+  elif file_ext == ".lua":
+    start_marker = "--  "
+    end_marker = " --"
   else:
     start_marker = "#    "
     end_marker = "   #"
@@ -136,7 +139,7 @@ def prepare_header_and_content(ascii, path):
 
     lines_to_skip = 0
     for line in existing_content:
-      if line.strip().startswith(("/*", "#", "<!--")):
+      if line.strip().startswith(("/*", "#", "<!--", "--")):
         lines_to_skip += 1
       else:
         break
